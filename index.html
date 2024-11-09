@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Js hw 03</title>
+    <link rel="icon" href="images/4chan-color.svg" type="image/svg+xml" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      input,
+      button {
+        padding: 10px;
+        margin: 5px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Js hw 03</h1>
+
+    <div>
+      <h2>1. Slugify Function</h2>
+      <label for="titleInput">Enter Title:</label>
+      <input type="text" id="titleInput" placeholder="Enter your title here" />
+      <button id="slugifyButton">Generate Slug</button>
+
+      <h3>Generated Slug:</h3>
+      <p id="slugOutput"></p>
+
+      <script src="./js/task-1.js"></script>
+      <script>
+        // Slugify function
+        function slugify(title) {
+          return title.toLowerCase().trim().replace(/\s+/g, '-');
+        }
+
+        // Event listener for button click
+        document
+          .getElementById('slugifyButton')
+          .addEventListener('click', function () {
+            const title = document.getElementById('titleInput').value;
+            const slug = slugify(title);
+            document.getElementById('slugOutput').innerText = slug;
+          });
+      </script>
+    </div>
+
+    <div>
+      <h2>2. Array Composition</h2>
+      <label for="firstArrayInput">Enter First Array (comma separated):</label>
+      <input type="text" id="firstArrayInput" placeholder="e.g. Mango, Poly" />
+
+      <label for="secondArrayInput"
+        >Enter Second Array (comma separated):</label
+      >
+      <input
+        type="text"
+        id="secondArrayInput"
+        placeholder="e.g. Ajax, Chelsea"
+      />
+
+      <label for="maxLengthInput">Enter Max Length:</label>
+      <input type="number" id="maxLengthInput" placeholder="e.g. 3" />
+
+      <button id="makeArrayButton">Generate Array</button>
+
+      <h3>Generated Array:</h3>
+      <p id="arrayOutput"></p>
+
+      <script src="./js/task-2.js"></script>
+      <script>
+        // Функція makeArray
+        function makeArray(firstArray, secondArray, maxLength) {
+          const combinedArray = [...firstArray, ...secondArray];
+
+          if (combinedArray.length > maxLength) {
+            return combinedArray.slice(0, maxLength);
+          }
+
+          return combinedArray;
+        }
+
+        // Обробник події для кнопки
+        document
+          .getElementById('makeArrayButton')
+          .addEventListener('click', function () {
+            const firstArrayInput = document
+              .getElementById('firstArrayInput')
+              .value.split(',')
+              .map(item => item.trim());
+            const secondArrayInput = document
+              .getElementById('secondArrayInput')
+              .value.split(',')
+              .map(item => item.trim());
+            const maxLengthInput = parseInt(
+              document.getElementById('maxLengthInput').value,
+              10
+            );
+
+            const resultArray = makeArray(
+              firstArrayInput,
+              secondArrayInput,
+              maxLengthInput
+            );
+            document.getElementById('arrayOutput').innerText =
+              JSON.stringify(resultArray);
+          });
+      </script>
+    </div>
+
+    <div>
+      <h2>3. Filter Array of Numbers</h2>
+      <label for="numbersInput">Enter Numbers (comma separated):</label>
+      <input type="text" id="numbersInput" placeholder="e.g. 1, 2, 3, 4, 5" />
+
+      <label for="valueInput">Enter Value:</label>
+      <input type="number" id="valueInput" placeholder="e.g. 3" />
+
+      <button id="filterArrayButton">Filter Array</button>
+
+      <h3>Filtered Array:</h3>
+      <p id="arrayOutput"></p>
+
+      <script src="./js/task-3.js"></script>
+      <script>
+        // Функція filterArray
+        function filterArray(numbers, value) {
+          const result = [];
+
+          for (let i = 0; i < numbers.length; i++) {
+            if (numbers[i] > value) {
+              result.push(numbers[i]);
+            }
+          }
+
+          return result;
+        }
+
+        // Обробник події для кнопки
+        document
+          .getElementById('filterArrayButton')
+          .addEventListener('click', function () {
+            const numbersInput = document
+              .getElementById('numbersInput')
+              .value.split(',')
+              .map(item => parseFloat(item.trim()));
+            const valueInput = parseFloat(
+              document.getElementById('valueInput').value
+            );
+
+            const resultArray = filterArray(numbersInput, valueInput);
+            document.getElementById('arrayOutput').innerText =
+              JSON.stringify(resultArray);
+          });
+      </script>
+    </div>
+  </body>
+</html>
